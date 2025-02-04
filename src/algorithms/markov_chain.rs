@@ -1,32 +1,44 @@
-use crate::algorithms::distributions::Distribution;
+use crate::algorithms::distributions::ProbabilityDistribution;
+use crate::algorithms::stochastic_matrix::StochasticMatrix;
+use rand::distr::weighted::WeightedIndex;
+use rand::distr::Distribution;
 
-// A generic Markov chain, where T is the type representing a state,
-// and D is a distribution that given a state returns a new candidate state.
-pub struct MarkovChain<T, D>
-where
-    D: Distribution<T>,
-{
-    pub current_state: T,
-    pub transition_distribution: D,
+pub struct MarkovChain<T> {
+    pub states: Vec<T>,
+    pub transition_matrix: StochasticMatrix,
+    pub current_state_index: usize,
 }
 
-impl<T, D> MarkovChain<T, D>
-where
-    D: Distribution<T>,
-{
-    pub fn new(initial_state: T, transition_distribution: D) -> Self {
+impl<T: Clone> MarkovChain<T> {
+    pub fn new(
+        states: Vec<T>,
+        transition_matrix: StochasticMatrix,
+        initial_distribution: ProbabilityDistribution,
+    ) -> Self {
+        let initial_index = initial_distribution
+            .values
+            .iter()
+            .enumerate()
+            .max_by(|a, b| a.1.partial_cmp(b.1).unwrap())
+            .map(|(idx, _)| idx)
+            .unwrap();
+
         Self {
-            current_state: initial_state,
-            transition_distribution,
+            states,
+            transition_matrix,
+            current_state_index: initial_index,
         }
     }
 
-    /// Advance the chain by one step.
-    pub fn step(&mut self) {
-        // In a simple Markov chain, we sample a new state.
-        let new_state = self.transition_distribution.sample(&self.current_state);
-        // CAN include acceptance criteria here
-        // (for Metropolis-Hastings algorithm)
-        self.current_state = new_state;
+    pub fn step<R: rand::Rng>(&mut self, rng: &mut R) {
+        let dist = ProbabilityDistribution {
+            values: self.transition_matrix.matrix[self.current_state_index].clone(),
+        };
+        let new_index = WeightedIndex::new(&dist.values).unwrap().sample(rng);
+        self.current_state_index = new_index;
+    }
+
+    pub fn get_current_state(&self) -> &T {
+        &self.states[self.current_state_index]
     }
 }
