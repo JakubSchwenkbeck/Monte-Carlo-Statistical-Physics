@@ -29,9 +29,13 @@ impl ProbabilityDistribution {
             "All values must be non-negative"
         );
         let sum: f64 = values.iter().sum();
-        println!("{}", sum);
         assert!((sum - 1.0).abs() < 1e-9, "Probabilities must sum to 1");
         Self { values }
+    }
+    // Add direct sampling capability to ProbabilityDistribution
+    pub fn sample<R: Rng>(&self, rng: &mut R) -> usize {
+        let dist = WeightedIndex::new(&self.values).expect("Invalid probability distribution");
+        dist.sample(rng)
     }
 }
 
