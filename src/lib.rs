@@ -8,3 +8,7 @@ pub mod algorithms {
 pub mod models {
     pub mod state;
 }
+pub mod applications {
+    pub mod pi_estimation;
+    pub mod web_graph;
+}
