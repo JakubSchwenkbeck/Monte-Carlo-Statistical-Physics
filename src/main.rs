@@ -1,4 +1,5 @@
 use monte_carlo::algorithms::distributions::{ProbabilityDistribution, RandomVariable};
+use monte_carlo::algorithms::metropolis::metropolis_example;
 use monte_carlo::applications::pi_estimation::estimate_pi;
 use monte_carlo::applications::web_graph::web_graph;
 
@@ -30,5 +31,7 @@ fn main() {
     let pi_estimate = estimate_pi(1_000_000);
     println!("Estimated π: {}", pi_estimate);
 
-    web_graph()
+    web_graph();
+
+    metropolis_example()
 }
