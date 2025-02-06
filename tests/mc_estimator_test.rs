@@ -38,7 +38,7 @@ fn test_weighted_estimator() {
     println!("Weighted estimator value: {}", estimate);
 
     //toy test  check that the value lies within an expected range.
-    assert!(estimate >= 0.0 && estimate <= 2.0);
+    assert!((0.0..=2.0).contains(&estimate));
 }
 
 #[test]
@@ -63,5 +63,5 @@ fn test_energy_estimator() {
     println!("Estimated Energy: {}", energy_estimate);
 
     // Check that the energy estimate is within a plausible range.
-    assert!(energy_estimate >= 0.0 && energy_estimate <= 2.0);
+    assert!((0.0..=2.0).contains(&energy_estimate));
 }
