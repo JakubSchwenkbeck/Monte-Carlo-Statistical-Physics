@@ -1,4 +1,5 @@
 use monte_carlo::algorithms::distributions::{ProbabilityDistribution, RandomVariable};
+use monte_carlo::algorithms::gibbs::gibbs_example;
 use monte_carlo::algorithms::metropolis::metropolis_example;
 use monte_carlo::applications::pi_estimation::estimate_pi;
 use monte_carlo::applications::web_graph::web_graph;
@@ -35,6 +36,8 @@ fn main() {
     web_graph();
 
     metropolis_example();
+
+    gibbs_example();
 
     ising_example()
 }
