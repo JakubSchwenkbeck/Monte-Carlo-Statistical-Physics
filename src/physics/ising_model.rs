@@ -1,71 +1,64 @@
 use rand::Rng;
 
 pub struct IsingModel {
+    pub size: usize,
     pub temperature: f64,
-    pub j: f64,
-    pub h: f64,
-    pub grid: Vec<Vec<i8>>,
+    pub spins: Vec<Vec<i32>>,
 }
 
 impl IsingModel {
-    pub fn new(temperature: f64, j: f64, h: f64, grid_size: usize) -> Self {
-        let grid = vec![vec![1; grid_size]; grid_size]; // All spins start as +1
-        Self {
-            temperature,
-            j,
-            h,
-            grid,
-        }
-    }
-
-    pub fn update(&mut self) {
+    pub fn new(size: usize, temperature: f64) -> Self {
         let mut rng = rand::rng();
-        let n = self.grid.len();
-        let m = self.grid[0].len();
-
-        // Randomly select a spin
-        let i = rng.random_range(0..n);
-        let j = rng.random_range(0..m);
-
-        let current_spin = self.grid[i][j];
-        let neighbor_sum = self.get_neighbor_sum(i, j);
-
-        let energy_diff = 2.0 * current_spin as f64 * neighbor_sum as f64 * self.j
-            + 2.0 * self.h * current_spin as f64;
-
-        // Decide whether to flip the spin
-        if energy_diff <= 0.0 || rng.random::<f64>() < (-energy_diff / self.temperature).exp() {
-            self.grid[i][j] = -current_spin; // Flip the spin
+        let spins = (0..size)
+            .map(|_| {
+                (0..size)
+                    .map(|_| if rng.random_bool(0.5) { 1 } else { -1 })
+                    .collect()
+            })
+            .collect();
+        Self {
+            size,
+            temperature,
+            spins,
         }
     }
 
-    fn get_neighbor_sum(&self, i: usize, j: usize) -> i8 {
-        let n = self.grid.len();
-        let m = self.grid[0].len();
+    pub fn step(&mut self) {
+        let mut rng = rand::rng();
+        for _ in 0..self.size * self.size {
+            let i = rng.random_range(0..self.size);
+            let j = rng.random_range(0..self.size);
+            let delta_e = 2
+                * self.spins[i][j]
+                * (self.spins[(i + 1) % self.size][j]
+                    + self.spins[(i + self.size - 1) % self.size][j]
+                    + self.spins[i][(j + 1) % self.size]
+                    + self.spins[i][(j + self.size - 1) % self.size]);
+            if delta_e <= 0 || rng.random_bool((-delta_e as f64 / self.temperature).exp()) {
+                self.spins[i][j] = -self.spins[i][j];
+            }
+        }
+    }
 
-        let mut sum = 0;
-        sum += self.grid[(i + 1) % n][j]; // Right
-        sum += self.grid[(i + n - 1) % n][j]; // Left
-        sum += self.grid[i][(j + 1) % m]; // Up
-        sum += self.grid[i][(j + m - 1) % m]; // Down
-
-        sum
+    pub fn magnetization(&self) -> f64 {
+        self.spins.iter().flatten().map(|&s| s as f64).sum::<f64>() / (self.size * self.size) as f64
     }
 }
 
 pub fn ising_example() {
-    let temperature = 2.0;
-    let j = 1.0;
-    let h = 0.0;
-    let grid_size = 10;
-
-    let mut ising_model = IsingModel::new(temperature, j, h, grid_size);
-
-    // Run Metropolis updates and print grid
-    for _ in 0..10000 {
-        ising_model.update(); // Update grid using Metropolis
+    let mut model = IsingModel::new(20, 2.0);
+    for _ in 0..1000 {
+        model.step();
     }
+    println!("Magnetization: {}", model.magnetization());
+}
 
-    // Print final state of the grid
-    println!("{:?}", ising_model.grid);
+#[test]
+fn test_ising_model() {
+    let mut model = IsingModel::new(20, 2.0);
+    for _ in 0..1000 {
+        model.step();
+    }
+    let magnetization = model.magnetization();
+    assert!(magnetization.abs() <= 1.0, "Magnetization out of bounds");
 }
