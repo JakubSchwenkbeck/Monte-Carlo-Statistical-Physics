@@ -2,6 +2,7 @@ use monte_carlo::algorithms::distributions::{ProbabilityDistribution, RandomVari
 use monte_carlo::algorithms::metropolis::metropolis_example;
 use monte_carlo::applications::pi_estimation::estimate_pi;
 use monte_carlo::applications::web_graph::web_graph;
+use monte_carlo::physics::ising_model::ising_example;
 
 fn main() {
     // Create a random variable representing a coin toss.
@@ -33,5 +34,7 @@ fn main() {
 
     web_graph();
 
-    metropolis_example()
+    metropolis_example();
+
+    ising_example()
 }

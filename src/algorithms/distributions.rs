@@ -37,6 +37,13 @@ impl ProbabilityDistribution {
         let dist = WeightedIndex::new(&self.values).expect("Invalid probability distribution");
         dist.sample(rng)
     }
+    pub fn from_unnormalized(mut weights: Vec<f64>) -> Self {
+        let sum: f64 = weights.iter().sum();
+        for w in &mut weights {
+            *w /= sum;
+        }
+        Self { values: weights }
+    }
 }
 
 pub struct RandomVariable<T> {

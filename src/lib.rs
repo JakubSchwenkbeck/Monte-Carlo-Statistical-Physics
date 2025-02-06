@@ -13,3 +13,8 @@ pub mod applications {
     pub mod pi_estimation;
     pub mod web_graph;
 }
+pub mod physics {
+    pub mod hilbert;
+    pub mod ising_model;
+}
+pub mod diagnostics;
