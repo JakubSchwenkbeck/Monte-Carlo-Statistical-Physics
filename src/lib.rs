@@ -17,6 +17,7 @@ pub mod applications {
     pub mod web_graph;
 }
 pub mod physics {
+    pub mod annealing;
     pub mod hilbert;
     pub mod ising_model;
 }

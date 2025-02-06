@@ -9,7 +9,7 @@ pub fn web_graph() {
         vec![0],    // Page 2 links to page 0
     ];
 
-    let num_simulations = 100_000;
+    let num_simulations = 1000;
     let num_steps = 100;
 
     let ranks = pagerank(web_graph, num_simulations, num_steps);

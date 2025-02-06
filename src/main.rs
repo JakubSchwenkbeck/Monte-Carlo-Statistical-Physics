@@ -1,8 +1,11 @@
 use monte_carlo::algorithms::distributions::{ProbabilityDistribution, RandomVariable};
 use monte_carlo::algorithms::gibbs::gibbs_example;
 use monte_carlo::algorithms::metropolis::metropolis_example;
+use monte_carlo::applications::percolation::percolation_example;
 use monte_carlo::applications::pi_estimation::estimate_pi;
+use monte_carlo::applications::random_walk::random_walk_example;
 use monte_carlo::applications::web_graph::web_graph;
+use monte_carlo::physics::annealing::simulated_annealing_example;
 use monte_carlo::physics::ising_model::ising_example;
 
 fn main() {
@@ -39,5 +42,11 @@ fn main() {
 
     gibbs_example();
 
-    ising_example()
+    ising_example();
+
+    random_walk_example();
+
+    percolation_example();
+
+    simulated_annealing_example();
 }

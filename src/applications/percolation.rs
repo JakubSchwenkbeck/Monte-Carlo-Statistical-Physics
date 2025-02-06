@@ -30,14 +30,11 @@ impl Percolation {
     }
 
     fn dfs(&self, row: usize, col: usize, visited: &mut Vec<Vec<bool>>) -> bool {
-        println!("Visiting ({}, {})", row, col); // Debugging statement
         if row >= self.size || col >= self.size || visited[row][col] || !self.is_open(row, col) {
-            println!("Returning false for ({}, {})", row, col); // Debugging statement
             return false;
         }
         visited[row][col] = true;
         if row == self.size - 1 {
-            println!("Reached bottom row at ({}, {})", row, col); // Debugging statement
             return true;
         }
         let directions = [(1, 0), (0, 1), (0, -1), (-1, 0)];
