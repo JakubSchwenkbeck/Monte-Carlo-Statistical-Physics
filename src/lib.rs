@@ -18,7 +18,9 @@ pub mod applications {
 }
 pub mod physics {
     pub mod annealing;
+    pub mod brownian_motion;
     pub mod hilbert;
     pub mod ising_model;
+    pub mod quantum;
 }
 pub mod diagnostics;

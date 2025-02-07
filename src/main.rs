@@ -6,8 +6,9 @@ use monte_carlo::applications::pi_estimation::estimate_pi;
 use monte_carlo::applications::random_walk::random_walk_example;
 use monte_carlo::applications::web_graph::web_graph;
 use monte_carlo::physics::annealing::simulated_annealing_example;
+use monte_carlo::physics::brownian_motion::brownian_motion_example;
 use monte_carlo::physics::ising_model::ising_example;
-
+use monte_carlo::physics::quantum::quantum_monte_carlo_example;
 fn main() {
     // Create a random variable representing a coin toss.
     let state_space = vec!["heads", "tails"];
@@ -49,4 +50,8 @@ fn main() {
     percolation_example();
 
     simulated_annealing_example();
+
+    brownian_motion_example();
+
+    quantum_monte_carlo_example();
 }
