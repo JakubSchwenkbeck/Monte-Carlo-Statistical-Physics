@@ -1,5 +1,9 @@
 use rand::Rng;
 
+/// Monte Carlo estimation of π
+/// - Generates random points in [-1,1]²
+/// - Counts points inside unit circle
+/// - Returns 4 × (inside / total)
 pub fn estimate_pi(samples: usize) -> f64 {
     let mut rng = rand::rng();
     let mut inside_circle = 0;

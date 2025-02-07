@@ -1,7 +1,10 @@
 use crate::algorithms::distributions::ProbabilityDistribution;
 use crate::algorithms::mc_estimator::MonteCarloEstimator;
 use crate::algorithms::stochastic_matrix::StochasticMatrix;
-
+/// Monte Carlo PageRank
+/// - Simulates random web surfing using a stochastic matrix
+/// - Estimates page importance based on visit frequency
+/// - Uses Monte Carlo estimation with multiple simulations
 pub fn web_graph() {
     let web_graph = vec![
         vec![1, 2], // Page 0 links to pages 1 and 2

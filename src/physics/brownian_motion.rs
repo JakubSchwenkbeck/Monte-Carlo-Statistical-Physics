@@ -1,5 +1,8 @@
 use rand::Rng;
-
+/// Brownian Motion Simulation
+/// - Models random movement of particles
+/// - Each step updates the position based on a random angle
+/// - Used for simulating diffusion processes
 pub struct BrownianMotion {
     pub num_particles: usize,
     pub num_steps: usize,
@@ -19,10 +22,10 @@ impl BrownianMotion {
     }
 
     pub fn simulate(&mut self) {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         for _ in 0..self.num_steps {
             for i in 0..self.num_particles {
-                let angle = rng.gen_range(0.0..2.0 * std::f64::consts::PI);
+                let angle = rng.random_range(0.0..2.0 * std::f64::consts::PI);
                 let dx = self.step_size * angle.cos();
                 let dy = self.step_size * angle.sin();
                 self.positions[i].0 += dx;

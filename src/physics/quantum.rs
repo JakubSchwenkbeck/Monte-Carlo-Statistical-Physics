@@ -1,5 +1,6 @@
 use rand::Rng;
-
+/// Quantum Monte Carlo simulation for estimating ground state energy
+/// - Uses wave function and local energy to estimate the quantum system's energy.
 pub struct QuantumMonteCarlo {
     pub num_samples: usize,
     pub alpha: f64,
@@ -25,9 +26,9 @@ impl QuantumMonteCarlo {
     }
 
     pub fn simulate(&mut self) {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         for i in 0..self.num_samples {
-            let x = rng.gen_range(-2.0..2.0);
+            let x = rng.random_range(-2.0..2.0);
             self.positions[i] = x;
         }
     }

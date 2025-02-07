@@ -1,5 +1,7 @@
 use rand::Rng;
-
+/// Ising model for simulating magnetic spin systems
+/// - Spins interact with neighbors and are influenced by temperature
+/// - Each step flips spins based on energy change and Metropolis criteria
 pub struct IsingModel {
     pub size: usize,
     pub temperature: f64,

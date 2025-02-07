@@ -1,6 +1,13 @@
 use crate::algorithms::distributions::ProbabilityDistribution;
 use crate::algorithms::stochastic_matrix::StochasticMatrix;
 
+/// Monte Carlo Estimator
+///
+/// Estimates probability distributions and expectation values using Markov Chain sampling.
+/// Supports:
+/// - State distribution estimation after `n_steps`.
+/// - Weighted observable estimation with importance sampling.
+/// - Canonical energy estimation using Boltzmann reweighting.
 pub struct MonteCarloEstimator {
     pub transition_matrix: StochasticMatrix,
 }

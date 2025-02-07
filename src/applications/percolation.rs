@@ -1,5 +1,8 @@
 use rand::Rng;
-
+/// Percolation model
+/// - Simulates fluid flow through a grid.
+/// - Uses DFS to check if top connects to bottom.
+/// - Example runs a random percolation test.
 pub struct Percolation {
     pub size: usize,
     pub grid: Vec<Vec<bool>>,

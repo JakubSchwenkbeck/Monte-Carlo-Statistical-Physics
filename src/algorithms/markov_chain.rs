@@ -2,7 +2,14 @@ use crate::algorithms::distributions::ProbabilityDistribution;
 use crate::algorithms::stochastic_matrix::StochasticMatrix;
 use rand::distr::weighted::WeightedIndex;
 use rand::distr::Distribution;
-
+/// Markov Chain Implementation
+///
+/// A generic Markov Chain model with a discrete state space and transition probabilities.
+/// - `MarkovChain<T>`: Represents a stochastic process with state transitions.
+/// - Uses `StochasticMatrix` for transition probabilities and `ProbabilityDistribution`
+///   for initialization.
+///
+/// Supports stepping through states based on weighted probabilities.
 pub struct MarkovChain<T> {
     pub states: Vec<T>,
     pub transition_matrix: StochasticMatrix,

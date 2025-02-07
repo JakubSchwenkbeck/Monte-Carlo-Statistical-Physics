@@ -2,6 +2,10 @@ use rand::distr::weighted::WeightedIndex;
 use rand::distr::Distribution as RandDistribution;
 use rand::Rng;
 
+/// Probability Distributions for Monte Carlo Simulations
+///
+/// This module defines various probability distributions and random sampling methods
+/// used in Monte Carlo simulations.
 pub trait Distribution<T> {
     fn sample(&self, current_state: &T) -> T;
 }

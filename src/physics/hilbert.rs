@@ -1,3 +1,8 @@
+/// Trait for Hamiltonian systems
+/// - Provides a method to calculate the energy of a given state
+///
+/// Ising model Hamiltonian
+/// - Models a system of spins interacting with each other and an external field
 pub trait Hamiltonian<T> {
     /// Given a state, return its energy.
     fn energy(&self, state: &T) -> f64;

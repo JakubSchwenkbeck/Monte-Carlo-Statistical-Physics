@@ -1,5 +1,8 @@
 use rand::Rng;
-
+/// Simulated Annealing
+/// - Optimizes by mimicking physical annealing process
+/// - Adjusts state with temperature-dependent acceptance probability
+/// - Cooling rate controls how quickly the temperature decreases
 pub struct SimulatedAnnealing {
     pub initial_temp: f64,
     pub cooling_rate: f64,

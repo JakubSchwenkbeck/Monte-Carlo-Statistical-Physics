@@ -1,5 +1,7 @@
 use rand::Rng;
-
+/// 1D Random Walk
+/// - Takes `steps`, moving ±1 randomly
+/// - Tracks final position
 pub struct RandomWalk {
     pub steps: usize,
     pub position: i32,

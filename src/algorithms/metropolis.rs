@@ -1,6 +1,11 @@
 use rand::Rng;
 
-/// Metropolis algorithm for sampling from a target distribution.
+/// Metropolis Algorithm
+///
+/// A Markov Chain Monte Carlo (MCMC) method for sampling from a target distribution.
+/// - Proposes new states based on a symmetric step size.
+/// - Accepts/rejects states using the Metropolis criterion.
+/// - Useful for sampling from complex distributions without direct normalization.
 pub struct Metropolis {
     target_distribution: fn(f64) -> f64, // Target distribution (up to a normalizing constant)
     step_size: f64,                      // Step size for proposing new states
